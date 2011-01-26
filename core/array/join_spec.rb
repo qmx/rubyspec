@@ -36,4 +36,16 @@ describe "Array#join" do
     obj = mock("not a string")
     lambda { [1, 2].send(@method, obj) }.should raise_error(TypeError)
   end
+
+  it "should use to_s when joining" do
+    class A
+      def to_s
+        "foo"
+      end
+      def to_a
+        ['f','o','o']
+      end
+    end
+    [A.new].join(",").should == "foo"
+  end
 end
